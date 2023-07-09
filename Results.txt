@@ -1,0 +1,2 @@
+You inputted the value: XC
+Your result was: 90

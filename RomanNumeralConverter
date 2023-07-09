@@ -1,16 +1,9 @@
 import PySimpleGUI as sg
 
+
 # Function for Converting Roman Numerals into umbers
 dictionary = {"I":1, "V":5, "X":10, "L":50, "C":100, "D":500, "M":1000}
 def rom_num_func(value):
-    incorrect = False
-    for i in value:
-        if i in dictionary.keys():
-            continue
-        else:
-            incorrect = True
-    if incorrect:
-        return "Invalid"
     if len(value) == 1: 
         return dictionary.get(value)
     sum = 0
@@ -26,6 +19,7 @@ def rom_num_func(value):
             sum = sum + dictionary.get(value[i])
             i = i + 1
     return sum
+
 
 # Function for Converting Numbers into Roman Numerals 
 dict_num = {1:"I", 5:"V", 10:"X", 50:"L", 100:"C", 500:"D", 1000:"M"}
@@ -47,32 +41,66 @@ def numerical(value):
         multiplier = multiplier * 10
     return roman_numeral
 
-# User Input
+
+# Entry Validity 
+def valid_entry_f(value):
+    value = str(value)
+    if value[0].isnumeric():
+        for i in value:
+            if i.isnumeric():
+                continue
+            else:
+                return False
+    elif value[0].isalpha():
+        for i in range(len(value)):
+            if value[i].isalpha():
+                if value[i] in dictionary.keys():
+                    if i == 0:
+                        continue
+                    else:
+                        if (dictionary.get(value[i-1]) * 10) < (dictionary.get(value[i])):
+                            return False
+                        else:
+                            continue
+                else:
+                    return False
+            else:
+                return False
+                
+    else:
+        return False
+    return True
+
+
+# Main Method
+
+# if '__name__' == '__main__':
 print("Welcome to the Roman Numeral Converter")
-value = input("Input a Roman Numeral or Number: \n")
-
- 
-# label = sg.Text("Input a Roman Numeral or a Number: ")
-# input = sg.Input(key="Input")
-# output = sg.Text("The Result is: ", key="ouput")
-# convert_button = sg.Button("Convert")
-# exit_button = sg.Button("Exit")
-# convert = sg.Window("Converter", [[label, input], [convert_button, exit_button, output]])
-# event, value = convert.read()
+valid_entry = False 
+while valid_entry == False:
+    value = input("Input a Roman Numeral or Number: \n")
 
 
-# Calling Methods 
-value = value.upper().strip()
-rom_num = value.isalpha()
-if rom_num: 
-    conversion = rom_num_func(value)
-else:
-    conversion = numerical(value)
-print("Check the Results File")
+    # Checking Validity 
+    value = value.upper().strip().replace(" ", "")
+    valid_entry = valid_entry_f(value)
 
-# Writing in a New File
-conversion = str(conversion)
-with open ("Results.txt", "w") as f:
-    f.write("You inputted the value: " + value + "\n")
-    f.write("Your result was: " + conversion)
-    f.close()
+    # Valid Input 
+    if valid_entry:
+        rom_num = value.isalpha()
+        if rom_num: 
+            conversion = rom_num_func(value)
+        else:
+            conversion = numerical(value)
+        print("Check the Results File")
+
+        # Writing in a New File
+        conversion = str(conversion)
+        with open ("Results.txt", "w") as f:
+            f.write("You inputted the value: " + value + "\n")
+            f.write("Your result was: " + conversion)
+            f.close()
+
+    # Invalid Input
+    else: 
+        print("Your Entry was Invalid. Try Again")
