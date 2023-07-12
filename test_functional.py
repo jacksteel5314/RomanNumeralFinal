@@ -45,7 +45,7 @@ class TestDecimalToRoman(unittest.TestCase):
         self.assertEqual(roman_nums.numerical(test_four), "II")
         test_five= "    2  V"
         self.assertFalse(roman_nums.valid_entry_f(test_five)) 
-        print("Hello")
+        
         
 
 if __name__ == '__main__':
