@@ -8,33 +8,20 @@ def main():
     while valid_entry == False:
         value = input("Input a Roman Numeral or Number: \n")
 
-
         # Checking Validity 
         value = value.upper().strip().replace(" ", "")
-        valid_entry = valid_entry_f(value)
+        valid_entry = roman_nums.valid_entry_f(value)
 
-
-    # Checking Validity 
-    value = value.upper().strip().replace(" ", "")
-    valid_entry = roman_nums.valid_entry_f(value)
-
-    # Valid Input 
-    if valid_entry:
-        rom_num = value.isalpha()
-        if rom_num: 
-            conversion = roman_nums.rom_num_func(value)
-        else:
-            conversion = roman_nums.numerical(value)
-        print("Check the Results File")
 
         # Valid Input 
         if valid_entry:
             rom_num = value.isalpha()
             if rom_num: 
-                conversion = rom_num_func(value)
+                conversion = roman_nums.rom_num_func(value)
             else:
-                conversion = numerical(value)
+                conversion = roman_nums.numerical(value)
             print("Check the Results File")
+
 
             # Writing in a New File
             conversion = str(conversion)
