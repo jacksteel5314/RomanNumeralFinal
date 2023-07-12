@@ -3,34 +3,38 @@ import roman_numerals_lib as roman_nums
 
 
 # Main Method
+def main():
+    print("Welcome to the Roman Numeral Converter")
+    valid_entry = False 
+    while valid_entry == False:
+        value = input("Input a Roman Numeral or Number: \n")
 
-# if '__name__' == '__main__':
-print("Welcome to the Roman Numeral Converter")
-valid_entry = False 
-while valid_entry == False:
-    value = input("Input a Roman Numeral or Number: \n")
+
+        # Checking Validity 
+        value = value.upper().strip().replace(" ", "")
+        valid_entry = roman_nums.valid_entry_f(value)
+
+        # Valid Input 
+        if valid_entry:
+            rom_num = value.isalpha()
+            if rom_num: 
+                conversion = roman_nums.rom_num_func(value)
+            else:
+                conversion = roman_nums.numerical(value)
+            print("Check the Results File")
+
+            # Writing in a New File
+            conversion = str(conversion)
+            with open ("Results.txt", "w") as f:
+                f.write("You inputted the value: " + value + "\n")
+                f.write("Your result was: " + conversion)
+                f.close()
+
+        # Invalid Input
+        else: 
+            print("Your Entry was Invalid. Try Again")
 
 
-    # Checking Validity 
-    value = value.upper().strip().replace(" ", "")
-    valid_entry = roman_nums.valid_entry_f(value)
+if __name__ == '__main__':
+    main()
 
-    # Valid Input 
-    if valid_entry:
-        rom_num = value.isalpha()
-        if rom_num: 
-            conversion = roman_nums.rom_num_func(value)
-        else:
-            conversion = roman_nums.numerical(value)
-        print("Check the Results File")
-
-        # Writing in a New File
-        conversion = str(conversion)
-        with open ("Results.txt", "w") as f:
-            f.write("You inputted the value: " + value + "\n")
-            f.write("Your result was: " + conversion)
-            f.close()
-
-    # Invalid Input
-    else: 
-        print("Your Entry was Invalid. Try Again")
