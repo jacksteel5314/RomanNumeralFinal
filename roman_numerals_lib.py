@@ -65,7 +65,7 @@ def valid_entry_f(value):
                                 if i == len(value) - 1:
                                     continue
                                 else:
-                                    if dictionary.get(value[i-1]) == dictionary.get(value[i+1]):
+                                    if dictionary.get(value[i-1]) == dictionary.get(value[i+1]) & (dictionary.get(value[i-1]) != dictionary.get(value[i])):
                                         return False
                 else:
                     return False
