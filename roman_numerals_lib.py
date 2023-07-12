@@ -57,7 +57,11 @@ def valid_entry_f(value):
                         if (dictionary.get(value[i-1]) * 10) < (dictionary.get(value[i])):
                             return False
                         else:
-                            continue
+                            if i == len(value) - 1:
+                                continue
+                            else:
+                                if dictionary.get(value[i-1]) == dictionary.get(value[i+1]):
+                                    return False
                 else:
                     return False
             else:
