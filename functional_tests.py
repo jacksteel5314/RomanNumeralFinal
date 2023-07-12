@@ -8,7 +8,7 @@ class TestRomanToDecimal(unittest.TestCase):
 
     def test_thorough(self):
         # TODO flesh this out
-        self.assertTrue(roman_nums.valid_entry_f("IXI"))
+        self.assertFalse(roman_nums.valid_entry_f("IXI"))
 
 class TestDecimalToRoman(unittest.TestCase):
 
