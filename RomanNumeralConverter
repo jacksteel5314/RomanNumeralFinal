@@ -2,13 +2,16 @@ import PySimpleGUI as sg
 import roman_numerals_lib as roman_nums
 
 
-# Main Method
+def main():
+    print("Welcome to the Roman Numeral Converter")
+    valid_entry = False 
+    while valid_entry == False:
+        value = input("Input a Roman Numeral or Number: \n")
 
-# if '__name__' == '__main__':
-print("Welcome to the Roman Numeral Converter")
-valid_entry = False 
-while valid_entry == False:
-    value = input("Input a Roman Numeral or Number: \n")
+
+        # Checking Validity 
+        value = value.upper().strip().replace(" ", "")
+        valid_entry = valid_entry_f(value)
 
 
     # Checking Validity 
@@ -24,13 +27,28 @@ while valid_entry == False:
             conversion = roman_nums.numerical(value)
         print("Check the Results File")
 
-        # Writing in a New File
-        conversion = str(conversion)
-        with open ("Results.txt", "w") as f:
-            f.write("You inputted the value: " + value + "\n")
-            f.write("Your result was: " + conversion)
-            f.close()
+        # Valid Input 
+        if valid_entry:
+            rom_num = value.isalpha()
+            if rom_num: 
+                conversion = rom_num_func(value)
+            else:
+                conversion = numerical(value)
+            print("Check the Results File")
 
-    # Invalid Input
-    else: 
-        print("Your Entry was Invalid. Try Again")
+            # Writing in a New File
+            conversion = str(conversion)
+            with open ("Results.txt", "w") as f:
+                f.write("You inputted the value: " + value + "\n")
+                f.write("Your result was: " + conversion)
+                f.close()
+
+
+        # Invalid Input
+        else: 
+            print("Your Entry was Invalid. Try Again")
+
+# Main Method
+if __name__ == '__main__':
+    main()
+
