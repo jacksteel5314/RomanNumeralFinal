@@ -1,2 +1,0 @@
-You inputted the value: XVI
-Your result was: 16
