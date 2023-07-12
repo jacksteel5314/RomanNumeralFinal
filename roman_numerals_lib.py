@@ -1,6 +1,7 @@
 # Function for Converting Roman Numerals into umbers
 dictionary = {"I":1, "V":5, "X":10, "L":50, "C":100, "D":500, "M":1000}
 def rom_num_func(value):
+    value = value.upper().strip().replace(" ", "")
     if len(value) == 1: 
         return dictionary.get(value)
     sum = 0
@@ -21,7 +22,7 @@ def rom_num_func(value):
 # Function for Converting Numbers into Roman Numerals 
 dict_num = {1:"I", 5:"V", 10:"X", 50:"L", 100:"C", 500:"D", 1000:"M"}
 def numerical(value):
-    num_str = str(value)
+    num_str = str(value).strip().replace(" ", "")
     rev_num = num_str[::-1]
     multiplier = 1
     roman_numeral = ""
@@ -41,6 +42,7 @@ def numerical(value):
 # Entry Validity 
 def valid_entry_f(value):
     value = str(value)
+    value = value.upper().strip().replace(" ", "")
     if value[0].isnumeric():
         for i in value:
             if i.isnumeric():
@@ -57,11 +59,14 @@ def valid_entry_f(value):
                         if (dictionary.get(value[i-1]) * 10) < (dictionary.get(value[i])):
                             return False
                         else:
-                            if i == len(value) - 1:
-                                continue
+                            if (value[i-1] == value[i]) & ((value[i] == "V" )| (value[i] == "L") | (value[i] == "D")):
+                                return False
                             else:
-                                if dictionary.get(value[i-1]) == dictionary.get(value[i+1]):
-                                    return False
+                                if i == len(value) - 1:
+                                    continue
+                                else:
+                                    if dictionary.get(value[i-1]) == dictionary.get(value[i+1]):
+                                        return False
                 else:
                     return False
             else:
