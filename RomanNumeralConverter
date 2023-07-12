@@ -2,36 +2,6 @@ import PySimpleGUI as sg
 import roman_numerals_lib as roman_nums
 
 
-# Entry Validity 
-def valid_entry_f(value):
-    value = str(value)
-    if value[0].isnumeric():
-        for i in value:
-            if i.isnumeric():
-                continue
-            else:
-                return False
-    elif value[0].isalpha():
-        for i in range(len(value)):
-            if value[i].isalpha():
-                if value[i] in roman_nums.dictionary.keys():
-                    if i == 0:
-                        continue
-                    else:
-                        if (roman_nums.dictionary.get(value[i-1]) * 10) < (roman_nums.dictionary.get(value[i])):
-                            return False
-                        else:
-                            continue
-                else:
-                    return False
-            else:
-                return False
-                
-    else:
-        return False
-    return True
-
-
 # Main Method
 
 # if '__name__' == '__main__':
@@ -43,7 +13,7 @@ while valid_entry == False:
 
     # Checking Validity 
     value = value.upper().strip().replace(" ", "")
-    valid_entry = valid_entry_f(value)
+    valid_entry = roman_nums.valid_entry_f(value)
 
     # Valid Input 
     if valid_entry:

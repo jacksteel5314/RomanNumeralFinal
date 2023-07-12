@@ -37,3 +37,33 @@ def numerical(value):
             roman_numeral = dict_num.get(5 * multiplier) + (leftover * dict_num.get(multiplier)) + roman_numeral
         multiplier = multiplier * 10
     return roman_numeral
+
+# Entry Validity 
+def valid_entry_f(value):
+    value = str(value)
+    if value[0].isnumeric():
+        for i in value:
+            if i.isnumeric():
+                continue
+            else:
+                return False
+    elif value[0].isalpha():
+        for i in range(len(value)):
+            if value[i].isalpha():
+                if value[i] in dictionary.keys():
+                    if i == 0:
+                        continue
+                    else:
+                        if (dictionary.get(value[i-1]) * 10) < (dictionary.get(value[i])):
+                            return False
+                        else:
+                            continue
+                else:
+                    return False
+            else:
+                return False
+                
+    else:
+        return False
+    return True
+
