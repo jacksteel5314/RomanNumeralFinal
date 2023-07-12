@@ -14,11 +14,11 @@ def valid_entry_f(value):
     elif value[0].isalpha():
         for i in range(len(value)):
             if value[i].isalpha():
-                if value[i] in dictionary.keys():
+                if value[i] in roman_nums.dictionary.keys():
                     if i == 0:
                         continue
                     else:
-                        if (dictionary.get(value[i-1]) * 10) < (dictionary.get(value[i])):
+                        if (roman_nums.dictionary.get(value[i-1]) * 10) < (roman_nums.dictionary.get(value[i])):
                             return False
                         else:
                             continue
