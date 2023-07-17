@@ -23,7 +23,9 @@ class TestRomanToDecimal(unittest.TestCase):
         self.assertTrue(roman_nums.valid_entry_f(test_six))
         self.assertEqual(roman_nums.rom_num_func(test_six), 9)
         test_seven = "IM"
-        self.assertFalse(roman_nums.valid_entry_f(test_seven))
+        self.assertFalse(roman_nums.valid_entry_f(test_seven)) 
+        test_eight = "VXV"
+        self.assertFalse(roman_nums.valid_entry_f(test_eight))
 
 class TestDecimalToRoman(unittest.TestCase):
 
@@ -45,6 +47,9 @@ class TestDecimalToRoman(unittest.TestCase):
         self.assertEqual(roman_nums.numerical(test_four), "II")
         test_five= "    2  V"
         self.assertFalse(roman_nums.valid_entry_f(test_five)) 
+        test_six = "4000"
+        self.assertFalse(roman_nums.valid_entry_f(test_six))
+
         
         
 

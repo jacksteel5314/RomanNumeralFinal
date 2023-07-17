@@ -41,6 +41,8 @@ def numerical(value):
 
 # Entry Validity 
 def valid_entry_f(value):
+    if (value == "") | (value == " "):
+        return False
     value = str(value)
     value = value.upper().strip().replace(" ", "")
     if value[0].isnumeric():
@@ -49,6 +51,8 @@ def valid_entry_f(value):
                 continue
             else:
                 return False
+        if int(value) >= 4000:
+            return False
     elif value[0].isalpha():
         for i in range(len(value)):
             if value[i].isalpha():
@@ -56,20 +60,24 @@ def valid_entry_f(value):
                     if i == 0:
                         continue
                     else:
-                        if (dictionary.get(value[i-1]) * 10) < (dictionary.get(value[i])):
-                            return False
+                        if len(value) - i >= 3:
+                            if (value[i-1] == value[i]) & (value[i] == value[i+1]) & (value[i+1] == value[i+2]):
+                                return False
                         else:
-                            if (value[i-1] == value[i]) & ((value[i] == "V" )| (value[i] == "L") | (value[i] == "D")):
+                            if (dictionary.get(value[i-1]) * 10) < (dictionary.get(value[i])):
                                 return False
                             else:
-                                if ((dictionary.get(value[i-1])) < dictionary.get(value[i])) & ((value[i-1] == "V") | (value[i-1] == "L") | (value[i-1] == "D")):
+                                if (value[i-1] == value[i]) & ((value[i] == "V" )| (value[i] == "L") | (value[i] == "D")):
                                     return False
                                 else:
-                                    if i == len(value) - 1:
-                                        continue
+                                    if ((dictionary.get(value[i-1])) < dictionary.get(value[i])) & ((value[i-1] == "V") | (value[i-1] == "L") | (value[i-1] == "D")):
+                                        return False
                                     else:
-                                        if (dictionary.get(value[i-1]) == dictionary.get(value[i+1])) & ((dictionary.get(value[i-1]) != dictionary.get(value[i]))):
-                                            return False
+                                        if i == len(value) - 1:
+                                            continue
+                                        else:
+                                            if (dictionary.get(value[i-1]) == dictionary.get(value[i+1])) & ((dictionary.get(value[i-1]) != dictionary.get(value[i]))):
+                                                return False
                 else:
                     return False
             else:
