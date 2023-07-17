@@ -62,11 +62,14 @@ def valid_entry_f(value):
                             if (value[i-1] == value[i]) & ((value[i] == "V" )| (value[i] == "L") | (value[i] == "D")):
                                 return False
                             else:
-                                if i == len(value) - 1:
-                                    continue
+                                if ((dictionary.get(value[i-1])) < dictionary.get(value[i])) & ((value[i-1] == "V") | (value[i-1] == "L") | (value[i-1] == "D")):
+                                    return False
                                 else:
-                                    if dictionary.get(value[i-1]) == dictionary.get(value[i+1]) & (dictionary.get(value[i-1]) != dictionary.get(value[i])):
-                                        return False
+                                    if i == len(value) - 1:
+                                        continue
+                                    else:
+                                        if (dictionary.get(value[i-1]) == dictionary.get(value[i+1])) & ((dictionary.get(value[i-1]) != dictionary.get(value[i]))):
+                                            return False
                 else:
                     return False
             else:
