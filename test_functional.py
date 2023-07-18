@@ -50,7 +50,12 @@ class TestDecimalToRoman(unittest.TestCase):
         test_six = "4000"
         self.assertFalse(roman_nums.valid_entry_f(test_six))
 
-        
+class TestLoopback(unittest.TestCase):
+    def test_loopback(self):
+        for n in range(3999):
+            roman = roman_nums.numerical(n)
+            decimal = roman_nums.rom_num_func(roman)
+            self.assertEqual(n, decimal)
         
 
 if __name__ == '__main__':
