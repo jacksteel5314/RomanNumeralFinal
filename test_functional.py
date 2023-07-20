@@ -52,8 +52,10 @@ class TestDecimalToRoman(unittest.TestCase):
 
 class TestLoopback(unittest.TestCase):
     def test_loopback(self):
-        for n in range(3999):
+        for n in range(1,3999):
+            self.assertTrue(roman_nums.valid_entry_f(n), "{} should report as a valid number for roman numerals.".format(n))
             roman = roman_nums.numerical(n)
+            self.assertTrue(roman_nums.valid_entry_f(roman), "{} is not a valid roman numeral as expected, converated from {}.".format(roman,n))
             decimal = roman_nums.rom_num_func(roman)
             self.assertEqual(n, decimal)
         
