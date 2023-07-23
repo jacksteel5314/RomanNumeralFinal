@@ -1,4 +1,10 @@
-# Function for Converting Roman Numerals into umbers
+# Roman numerals had no way to represent 0, and the largest value
+# they could represent was 3,999.
+MIN_ROMAN = 1
+MAX_ROMAN = 3999
+
+
+# Function for Converting Roman Numerals into numbers
 dictionary = {"I":1, "V":5, "X":10, "L":50, "C":100, "D":500, "M":1000}
 def rom_num_func(value):
     value = value.upper().strip().replace(" ", "")
@@ -39,51 +45,47 @@ def numerical(value):
         multiplier = multiplier * 10
     return roman_numeral
 
-# Entry Validity 
-def valid_entry_f(value):
-    if (value == "") | (value == " "):
-        return False
+# Validate and convert supplied value
+# thows exception if supplied value is invalid
+# returns converted decimal or roman numeral
+def convert(value):
+    # start with generic validation
     value = str(value)
     value = value.upper().strip().replace(" ", "")
-    if value[0].isnumeric():
-        for i in value:
-            if i.isnumeric():
+    if not value:
+        raise ValueError("Trying to convert a NULL value.")
+    # handle decimal-to-roman case, first validate, then convert
+    if value.isnumeric():
+        value = int(value)
+        if value < MIN_ROMAN or value > MAX_ROMAN:
+            raise ValueError("Roman numerals can only represet numbers in the range [{},{}].".format(MIN_ROMAN, MAX_ROMAN))
+        return numerical(value)
+    if not value.isalpha():
+        raise ValueError("This method can only convert a purely decimal or purely roman numeral to its counterpart.")
+    # handle roman-to-decimal case, first validate, then convert
+    for i in range(len(value)):
+        if value[i] in dictionary.keys():
+            if i == 0:
                 continue
             else:
-                return False
-        if int(value) >= 4000:
-            return False
-    elif value[0].isalpha():
-        for i in range(len(value)):
-            if value[i].isalpha():
-                if value[i] in dictionary.keys():
-                    if i == 0:
-                        continue
-                    else:
-                        if len(value) - i >= 3:
-                            if (value[i-1] == value[i]) & (value[i] == value[i+1]) & (value[i+1] == value[i+2]):
-                                return False
-                        else:
-                            if (dictionary.get(value[i-1]) * 10) < (dictionary.get(value[i])):
-                                return False
-                            else:
-                                if (value[i-1] == value[i]) & ((value[i] == "V" )| (value[i] == "L") | (value[i] == "D")):
-                                    return False
-                                else:
-                                    if ((dictionary.get(value[i-1])) < dictionary.get(value[i])) & ((value[i-1] == "V") | (value[i-1] == "L") | (value[i-1] == "D")):
-                                        return False
-                                    else:
-                                        if i == len(value) - 1:
-                                            continue
-                                        else:
-                                            if (dictionary.get(value[i-1]) == dictionary.get(value[i+1])) & (dictionary.get(value[i-1]) != dictionary.get(value[i])) & ((value[i-1] != "X") & (value[i-1] != "C") & (value[i-1] != "M")):
-                                                return False
+                if len(value) - i >= 3:
+                    if (value[i-1] == value[i]) & (value[i] == value[i+1]) & (value[i+1] == value[i+2]):
+                        raise ValueError("Invalid roman numeral: 4 or more letter repeats are not allowed.")
                 else:
-                    return False
-            else:
-                return False
-                
-    else:
-        return False
-    return True
-
+                    if (dictionary.get(value[i-1]) * 10) < (dictionary.get(value[i])):
+                        raise ValueError("Invalid roman numeral: '{}{}' invalid prefix decrement / values not decreasing.".format(value[i-1], value[i]))
+                    else:
+                        if (value[i-1] == value[i]) & ((value[i] == "V" )| (value[i] == "L") | (value[i] == "D")):
+                            raise ValueError("Invalid roman numeral: Repeating non-repeatable character {}.".format(value[i]))
+                        else:
+                            if ((dictionary.get(value[i-1])) < dictionary.get(value[i])) & ((value[i-1] == "V") | (value[i-1] == "L") | (value[i-1] == "D")):
+                                raise ValueError("Invalid roman numeral: Cannot prefix-decrement with {} character.".format(value[i-1]))
+                            else:
+                                if i == len(value) - 1:
+                                    continue
+                                else:
+                                    if (dictionary.get(value[i-1]) == dictionary.get(value[i+1])) & (dictionary.get(value[i-1]) != dictionary.get(value[i])) & ((value[i-1] != "X") & (value[i-1] != "C") & (value[i-1] != "M")):
+                                        raise ValueError("Invalid roman numeral {}: Cannot prefix-decrement and suffix-increment, {} character is doing so.".format(value, value[i-1]))
+        else:
+            raise ValueError("Roman numerals are only comprised of {} characters.".format(dictionary.keys()))
+    return rom_num_func(value)
