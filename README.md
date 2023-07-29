@@ -5,6 +5,7 @@ The Roman Numeral Converter is a repository including a user interface, unit tes
 * [Convert Method](https://github.com/jacksteel5314/RomanNumeralFinal/blob/main/README.md#convert-method)
 * [Main Method](https://github.com/jacksteel5314/RomanNumeralFinal/blob/main/README.md#main-method)
 * [Results File](https://github.com/jacksteel5314/RomanNumeralFinal/blob/main/README.md#results-file)
+* [Unit Tests](https://github.com/jacksteel5314/RomanNumeralFinal/blob/main/README.md#unit-tests)
 
 ## Convert Method
 
