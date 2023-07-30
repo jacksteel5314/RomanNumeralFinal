@@ -18,4 +18,13 @@ The Roman Numeral Converter is a repository including a user interface, unit tes
 
  ## Installation and Usage
 
+### Web Server
+This command will launch the web server in debug mode:
+
+```flask --app roman_numeral_web_server run --debug```
+
+ Use Ctrl-C to stop it. Open:
  
+[http://127.0.0.1:5000/convert](http://127.0.0.1:5000/convert)
+ 
+ in your browser to interact wtih it.
