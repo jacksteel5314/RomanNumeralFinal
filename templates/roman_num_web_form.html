@@ -1,0 +1,20 @@
+<!doctype html>
+<title>Welcome to your handy dandy Roman Numeral conversion tool.</title>
+{% if error %}
+<h1>{{ original }} cannot be converted, try again.</h1>
+<form>
+  <label>Enter a roman numeral or decimal to be converted:</label><br>
+  <input type="text" name="original"><br>
+</form>
+{% elif converted %}
+  <h1>{{ original }} converts to {{ converted_value }}!</h1>
+  <form>
+    <label>Enter a roman numeral or decimal to be converted:</label><br>
+    <input type="text" name="original"><br>
+  </form>
+{% else %}
+  <form>
+    <label>Enter a roman numeral or decimal to be converted:</label><br>
+    <input type="text" name="original"><br>
+  </form>
+{% endif %}
