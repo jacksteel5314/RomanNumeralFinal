@@ -21,7 +21,7 @@ class TestRomanToDecimal(unittest.TestCase):
 class TestDecimalToRoman(unittest.TestCase):
 
     def test_sanity(self):
-        self.assertEqual(roman_nums.numerical(1), 'I')
+        self.assertEqual(roman_nums.convert(1), 'I')
 
     def test_error_cases(self):
         error_cases = ["    2  V","-1","0","4000"]
