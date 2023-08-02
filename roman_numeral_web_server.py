@@ -16,7 +16,6 @@ def convert():
         try:
             converted_value = roman_nums.convert(value)
         except ValueError as err:
-            print('caught exception')
             return render_template('roman_num_web_form.html', error="true", original=value )
         return render_template('roman_num_web_form.html', converted="true", original=value, converted_value=converted_value)
     else:
