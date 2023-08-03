@@ -14,7 +14,11 @@ The Roman Numeral Converter is a repository including a user interface, unit tes
 ## Results File 
 
 ## Unit Tests 
+Use this command to run all unit tests:
 
+```
+python3 -m unittest discover
+```
 
  ## Installation and Usage
 
