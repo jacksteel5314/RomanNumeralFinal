@@ -64,20 +64,19 @@ def convert(value):
         raise ValueError("This method can only convert a purely decimal or purely roman numeral to its counterpart.")
     # handle roman-to-decimal case, first validate, then convert
     for i in range(1, len(value)):
-        if value[i] in dictionary.keys():
-            if len(value) - i >= 3:
-                if (value[i-1] == value[i]) & (value[i] == value[i+1]) & (value[i+1] == value[i+2]):
-                    raise ValueError("Invalid roman numeral: 4 or more letter repeats are not allowed.")
-            if (dictionary[value[i-1]] * 10) < (dictionary[value[i]]):
-                raise ValueError("Invalid roman numeral: '{}{}' invalid prefix decrement / values not decreasing.".format(value[i-1], value[i]))
-            if (value[i-1] == value[i]) & ((value[i] == "V" )| (value[i] == "L") | (value[i] == "D")):
-                raise ValueError("Invalid roman numeral: Repeating non-repeatable character {}.".format(value[i]))
-            if ((dictionary[value[i-1]]) < dictionary[value[i]]) & ((value[i-1] == "V") | (value[i-1] == "L") | (value[i-1] == "D")):
-                raise ValueError("Invalid roman numeral: Cannot prefix-decrement with {} character.".format(value[i-1]))
-            if i == len(value) - 1:
-                continue
-            if (dictionary[value[i-1]] == dictionary[value[i+1]]) & (dictionary[value[i-1]] != dictionary[value[i]]) & ((value[i-1] != "X") & (value[i-1] != "C") & (value[i-1] != "M")):
-                raise ValueError("Invalid roman numeral {}: Cannot prefix-decrement and suffix-increment, {} character is doing so.".format(value, value[i-1]))
-        else:
+        if value[i] not in dictionary.keys():
             raise ValueError("Roman numerals are only comprised of {} characters.".format(dictionary.keys()))
+        if len(value) - i >= 3:
+            if (value[i-1] == value[i]) & (value[i] == value[i+1]) & (value[i+1] == value[i+2]):
+                raise ValueError("Invalid roman numeral: 4 or more letter repeats are not allowed.")
+        if (dictionary[value[i-1]] * 10) < (dictionary[value[i]]):
+            raise ValueError("Invalid roman numeral: '{}{}' invalid prefix decrement / values not decreasing.".format(value[i-1], value[i]))
+        if (value[i-1] == value[i]) & ((value[i] == "V" )| (value[i] == "L") | (value[i] == "D")):
+            raise ValueError("Invalid roman numeral: Repeating non-repeatable character {}.".format(value[i]))
+        if ((dictionary[value[i-1]]) < dictionary[value[i]]) & ((value[i-1] == "V") | (value[i-1] == "L") | (value[i-1] == "D")):
+            raise ValueError("Invalid roman numeral: Cannot prefix-decrement with {} character.".format(value[i-1]))
+        if i == len(value) - 1:
+            continue
+        if (dictionary[value[i-1]] == dictionary[value[i+1]]) & (dictionary[value[i-1]] != dictionary[value[i]]) & ((value[i-1] != "X") & (value[i-1] != "C") & (value[i-1] != "M")):
+            raise ValueError("Invalid roman numeral {}: Cannot prefix-decrement and suffix-increment, {} character is doing so.".format(value, value[i-1]))
     return rom_num_func(value)
