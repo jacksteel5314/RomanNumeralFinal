@@ -1,54 +1,56 @@
-# Roman numerals had no way to represent 0, and the largest value
-# they could represent was 3,999.
-MIN_ROMAN = 1
-MAX_ROMAN = 3999
-
-
-# Function for Converting Roman Numerals into numbers
-dictionary = {"I":1, "V":5, "X":10, "L":50, "C":100, "D":500, "M":1000}
-def rom_num_func(value):
-    value = value.upper().strip().replace(" ", "")
-    if len(value) == 1: 
-        return dictionary[value]
-    sum = 0
-    i = 0
-    while i < len(value):
-        if i == (len(value) - 1):
-            sum = sum + dictionary[value[i]]
-            i = i + 1
-        elif dictionary.get(value[i]) < dictionary.get(value[i+1]):
-            sum = sum + dictionary[value[i+1]] - dictionary[value[i]]
-            i = i + 2
-        else:
-            sum = sum + dictionary[value[i]]
-            i = i + 1
-    return sum
-
-
-# Function for Converting Numbers into Roman Numerals 
-dict_num = {1:"I", 5:"V", 10:"X", 50:"L", 100:"C", 500:"D", 1000:"M"}
-def numerical(value):
-    num_str = str(value).strip().replace(" ", "")
-    rev_num = num_str[::-1]
-    multiplier = 1
-    roman_numeral = ""
-    for i in rev_num: 
-        i = int(i)
-        div_five = i//5
-        if (i == 4) | (i==9):
-            roman_numeral = dict_num[multiplier] + dict_num[(i+1) * multiplier] + roman_numeral
-        elif div_five == 0:
-            roman_numeral = (i * dict_num[multiplier]) + roman_numeral
-        else:
-            leftover = i - 5
-            roman_numeral = dict_num[5 * multiplier] + (leftover * dict_num[multiplier]) + roman_numeral
-        multiplier = multiplier * 10
-    return roman_numeral
-
 # Validate and convert supplied value
 # thows exception if supplied value is invalid
 # returns converted decimal or roman numeral
 def convert(value):
+    # Roman numerals have no way to represent 0, and the largest value
+    # they can represent is 3,999.
+    MIN_ROMAN = 1
+    MAX_ROMAN = 3999
+
+
+    # Function for Converting Roman Numerals into numbers
+    dictionary = {"I":1, "V":5, "X":10, "L":50, "C":100, "D":500, "M":1000}
+    def rom_num_func(value):
+        value = value.upper().strip().replace(" ", "")
+        if len(value) == 1:
+            return dictionary[value]
+        sum = 0
+        i = 0
+        while i < len(value):
+            if i == (len(value) - 1):
+                sum = sum + dictionary[value[i]]
+                i = i + 1
+            elif dictionary.get(value[i]) < dictionary.get(value[i+1]):
+                sum = sum + dictionary[value[i+1]] - dictionary[value[i]]
+                i = i + 2
+            else:
+                sum = sum + dictionary[value[i]]
+                i = i + 1
+        return sum
+
+
+    # Function for Converting Numbers into Roman Numerals
+    dict_num = {1:"I", 5:"V", 10:"X", 50:"L", 100:"C", 500:"D", 1000:"M"}
+    def numerical(value):
+        num_str = str(value).strip().replace(" ", "")
+        rev_num = num_str[::-1]
+        multiplier = 1
+        roman_numeral = ""
+        for i in rev_num:
+            i = int(i)
+            div_five = i//5
+            if (i == 4) | (i==9):
+                roman_numeral = dict_num[multiplier] + dict_num[(i+1) * multiplier] + roman_numeral
+            elif div_five == 0:
+                roman_numeral = (i * dict_num[multiplier]) + roman_numeral
+            else:
+                leftover = i - 5
+                roman_numeral = dict_num[5 * multiplier] + (leftover * dict_num[multiplier]) + roman_numeral
+            multiplier = multiplier * 10
+        return roman_numeral
+
+
+
     # start with generic validation
     value = str(value)
     value = value.upper().strip().replace(" ", "")
