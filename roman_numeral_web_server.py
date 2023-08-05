@@ -16,10 +16,10 @@ def convert():
         try:
             converted_value = roman_nums.convert(value)
         except ValueError as err:
-            return render_template('roman_num_web_form.html', error="true", original=value )
-        return render_template('roman_num_web_form.html', converted="true", original=value, converted_value=converted_value)
+            return render_template('error_case.html', original=value )
+        return render_template('success_case.html', original=value, converted_value=converted_value)
     else:
-        return render_template('roman_num_web_form.html', converted="" )
+        return render_template('input_case.html')
 
 @app.route("/convert/to_roman/<decimal_value>")
 def convert_to_roman(decimal_value):
