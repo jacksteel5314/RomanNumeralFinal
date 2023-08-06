@@ -1,11 +1,20 @@
+'''
+Checks validity of number or roman numeral and converts it
+'''
+
 # Validate and convert supplied value
 # thows exception if supplied value is invalid
 # returns converted decimal or roman numeral
+# pylint: disable=line-too-long
+
 def convert(value):
+    '''
+    Validates and converts value
+    '''
     # Roman numerals have no way to represent 0, and the largest value
     # they can represent is 3,999.
-    MIN_ROMAN = 1
-    MAX_ROMAN = 3999
+    min_roman = 1
+    max_roman = 3999
 
 
     # Function for Converting Roman Numerals into numbers
@@ -14,19 +23,19 @@ def convert(value):
         value = value.upper().strip().replace(" ", "")
         if len(value) == 1:
             return dictionary[value]
-        sum = 0
+        sums = 0
         i = 0
         while i < len(value):
             if i == (len(value) - 1):
-                sum = sum + dictionary[value[i]]
+                sums = sums + dictionary[value[i]]
                 i = i + 1
             elif dictionary.get(value[i]) < dictionary.get(value[i+1]):
-                sum = sum + dictionary[value[i+1]] - dictionary[value[i]]
+                sums = sums + dictionary[value[i+1]] - dictionary[value[i]]
                 i = i + 2
             else:
-                sum = sum + dictionary[value[i]]
+                sums = sums + dictionary[value[i]]
                 i = i + 1
-        return sum
+        return sums
 
 
     # Function for Converting Numbers into Roman Numerals
@@ -59,26 +68,26 @@ def convert(value):
     # handle decimal-to-roman case, first validate, then convert
     if value.isnumeric():
         value = int(value)
-        if value < MIN_ROMAN or value > MAX_ROMAN:
-            raise ValueError("Roman numerals can only represet numbers in the range [{},{}].".format(MIN_ROMAN, MAX_ROMAN))
+        if value < min_roman or value > max_roman:
+            raise ValueError(f"Roman numerals can only represet numbers in the range [{min_roman},{max_roman}].")
         return numerical(value)
     if not value.isalpha():
         raise ValueError("This method can only convert a purely decimal or purely roman numeral to its counterpart.")
     # handle roman-to-decimal case, first validate, then convert
     for i in range(1, len(value)):
-        if value[i] not in dictionary.keys():
-            raise ValueError("Roman numerals are only comprised of {} characters.".format(dictionary.keys()))
+        if value[i] not in dictionary:
+            raise ValueError(f"Roman numerals are only comprised of {dictionary.keys()} characters.")
         if len(value) - i >= 3:
             if (value[i-1] == value[i]) & (value[i] == value[i+1]) & (value[i+1] == value[i+2]):
                 raise ValueError("Invalid roman numeral: 4 or more letter repeats are not allowed.")
         if (dictionary[value[i-1]] * 10) < (dictionary[value[i]]):
-            raise ValueError("Invalid roman numeral: '{}{}' invalid prefix decrement / values not decreasing.".format(value[i-1], value[i]))
+            raise ValueError(f"Invalid roman numeral: '{value[i-1]}{value[i]}' invalid prefix decrement / values not decreasing.")
         if (value[i-1] == value[i]) & ((value[i] == "V" )| (value[i] == "L") | (value[i] == "D")):
-            raise ValueError("Invalid roman numeral: Repeating non-repeatable character {}.".format(value[i]))
+            raise ValueError(f"Invalid roman numeral: Repeating non-repeatable character {value[i]}.")
         if ((dictionary[value[i-1]]) < dictionary[value[i]]) & ((value[i-1] == "V") | (value[i-1] == "L") | (value[i-1] == "D")):
-            raise ValueError("Invalid roman numeral: Cannot prefix-decrement with {} character.".format(value[i-1]))
+            raise ValueError(f"Invalid roman numeral: Cannot prefix-decrement with {value[i-1]} character.")
         if i == len(value) - 1:
             continue
         if (dictionary[value[i-1]] == dictionary[value[i+1]]) & (dictionary[value[i-1]] != dictionary[value[i]]) & ((value[i-1] != "X") & (value[i-1] != "C") & (value[i-1] != "M")):
-            raise ValueError("Invalid roman numeral {}: Cannot prefix-decrement and suffix-increment, {} character is doing so.".format(value, value[i-1]))
+            raise ValueError(f"Invalid roman numeral {value}: Cannot prefix-decrement and suffix-increment, {value[i-1]} character is doing so.")
     return rom_num_func(value)
