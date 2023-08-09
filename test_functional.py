@@ -19,7 +19,7 @@ class TestRomanToDecimal(unittest.TestCase):
         '''
         Tests common error roman numeral cases corrected in code
         '''
-        error_cases = ["IXI","VV","IIII","IM","VXV"]
+        error_cases = ["IXI","VV","IIII","IM","VXV","A","IIA"]
         for case in error_cases:
             with self.assertRaises(ValueError):
                 roman_nums.convert(case)
