@@ -28,8 +28,9 @@ def convert(value):
     for i in range(1, len(value)):
         if value[i] not in dictionary.keys():
             raise ValueError(f"Roman numerals are only comprised of {dictionary.keys()} characters.")
-        if (i+1 < len(value)) & value[i+1] not in dictionary.keys():
-            raise ValueError(f"Roman numerals are only comprised of {dictionary.keys()} characters.")
+        if i+1 < len(value): 
+            if value[i+1] not in dictionary.keys():
+                raise ValueError(f"Roman numerals are only comprised of {dictionary.keys()} characters.")
         if len(value) - i >= 3:
             if (value[i-1] == value[i]) & (value[i] == value[i+1]) & (value[i+1] == value[i+2]):
                 raise ValueError("Invalid roman numeral: 4 or more letter repeats are not allowed.")
