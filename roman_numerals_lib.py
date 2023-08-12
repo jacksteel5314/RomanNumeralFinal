@@ -23,8 +23,12 @@ def convert(value):
     if not value.isalpha():
         raise ValueError("This method can only convert a purely decimal or purely roman numeral to its counterpart.")
     # handle roman-to-decimal case, first validate, then convert
-    for i in range(0, len(value)):
+    if value[0] not in dictionary.keys():
+        raise ValueError(f"Roman numerals are only comprised of {dictionary.keys()} characters.")
+    for i in range(1, len(value)):
         if value[i] not in dictionary.keys():
+            raise ValueError(f"Roman numerals are only comprised of {dictionary.keys()} characters.")
+        if (i+1 < len(value)) & value[i+1] not in dictionary.keys():
             raise ValueError(f"Roman numerals are only comprised of {dictionary.keys()} characters.")
         if len(value) - i >= 3:
             if (value[i-1] == value[i]) & (value[i] == value[i+1]) & (value[i+1] == value[i+2]):
